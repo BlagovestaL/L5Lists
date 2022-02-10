@@ -1,0 +1,40 @@
+package L5Lists.lab;
+
+import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class p01SumAdjacentEqualNumbers {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Double> numLists = Arrays
+                        .stream(scanner.nextLine().split(" "))
+                        .map(Double::parseDouble)
+                        .collect(Collectors.toList());
+
+        for (int i = 0; i < numLists.size() - 1; i++){
+            if (numLists.get(i).equals(numLists.get(i + 1))){
+
+                numLists.set(i, numLists.get(i) + numLists.get(i + 1));
+                numLists.remove(i + 1);
+
+                i = -1;
+            }
+        }
+        System.out.println(joinElement(numLists, " "));
+    }
+
+    private static String joinElement(List<Double> lists, String delimiter) {
+        String output = "";
+        for (Double item:lists){
+            DecimalFormat df = new DecimalFormat("0.#");
+            String num = df.format(item) + delimiter;
+
+            output += num;
+        }
+        return output;
+    }
+}
