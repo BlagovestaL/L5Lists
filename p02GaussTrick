@@ -1,0 +1,50 @@
+package L5Lists.lab;
+
+import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+public class p02GaussTrick {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        List<Integer> numLists = Arrays
+                    .stream(scanner.nextLine().split(" "))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+
+        if (numLists.size() % 2 != 0){
+            for (int i = 0; i < numLists.size() / 2; i++){
+
+                int firstNum = numLists.get(i);
+                int lastNum = numLists.get(numLists.size() - 1);
+
+                numLists.set(i, firstNum + lastNum);
+                numLists.remove(numLists.size() - 1);
+            }
+        }else{
+            for (int i = 0; i < numLists.size(); i++){
+
+                int firstNum = numLists.get(i);
+                int lastNum = numLists.get(numLists.size() - 1);
+
+                numLists.set(i, firstNum + lastNum);
+                numLists.remove(numLists.size() - 1);
+            }
+        }
+        System.out.println(joinElement(numLists, " "));
+    }
+
+    private static String joinElement(List<Integer> lists, String delimiter) {
+        String output = "";
+        for (Integer item:lists){
+            DecimalFormat df = new DecimalFormat("0.#");
+            String num = df.format(item) + delimiter;
+
+            output += num;
+        }
+        return output;
+    }
+}
